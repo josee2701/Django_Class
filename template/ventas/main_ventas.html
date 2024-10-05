@@ -1,0 +1,26 @@
+{% load  static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+</head>
+<body>
+     <!-- Barra de navegación -->
+     <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+            <li><a href="{% url 'productos' %}">Productos</a></li>
+            <li><a href="{% url 'stock' %}">Stock</a></li>
+            <li><a href="{% url 'ventas' %}">Ventas</a></li>
+        </ul>
+    </nav>
+    <!-- Encabezado de la tienda -->
+    <header>
+        <h1>Ventas</h1>
+    </header>
+
+</body>
