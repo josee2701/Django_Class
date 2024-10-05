@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView
 
 from.models import Product,Stock,Venta
 
@@ -10,6 +10,14 @@ class IndexView(TemplateView):
     
 class ListProductos(ListView):
     template_name='productos/main_productos.html'
+    model= Product
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    
+class AddProductos(CreateView):
+    template_name='productos/add_productos.html'
     model= Product
     
     def get_context_data(self, **kwargs):

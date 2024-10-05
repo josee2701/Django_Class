@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import IndexView, ListProductos, ListStock, ListVentas
+from .views import (AddProductos, IndexView, ListProductos, ListStock,
+                    ListVentas)
 
 # Define la lista de URL pattern
 urlpatterns = [
@@ -8,4 +9,5 @@ urlpatterns = [
     path("ventas/", ListVentas.as_view(), name="ventas"),
     path("stock/", ListStock.as_view(), name="stock"),
     path("productos/", ListProductos.as_view(), name="productos"),
+    path("addproductos/", AddProductos.as_view(), name="addProductos"),
 ]
