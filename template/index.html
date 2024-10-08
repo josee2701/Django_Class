@@ -1,54 +1,22 @@
-{% load  static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% extends 'base.html' %}
 
-</head>
-<body>
+{% block title %}Inicio - Tienda{% endblock %}
 
-   <!-- Barra de navegación -->
-   <nav>
-    <ul>
-        <li><a href="{% url 'index' %}">Inicio</a></li>
-        <li><a href="{% url 'productos' %}">Productos</a></li>
-        <li><a href="{% url 'stock' %}">Stock</a></li>
-        <li><a href="{% url 'ventas' %}">Ventas</a></li>
-    </ul>
-</nav>
-
-    <!-- Encabezado de la tienda -->
+{% block content %}
     <header>
-        <h1>Tienda</h1>
+        <h1>Bienvenido a nuestra Tienda</h1>
     </header>
 
-    <!-- Lista de productos -->
     <section class="product-list">
-        <!-- Producto 1 -->
+        <!-- Repite este bloque para cada producto -->
         <div class="product">
-            <img src="https://via.placeholder.com/150" alt="Celular Motorola">
+            <img src="https://via.placeholder.com/150" alt="Nombre del Producto">
             <div class="product-info">
-                <h2>Celular Motorola</h2>
-                <p><strong>Precio:</strong> $100000.0</p>
-                <p>Disponible en Dorado colores</p>
-            </div>
-            <button>Comprar</button>
-        </div>
-
-        <!-- Producto 2 -->
-        <div class="product">
-            <img src="https://via.placeholder.com/150" alt="Asus">
-            <div class="product-info">
-                <h2>Asus</h2>
-                <p><strong>Precio:</strong> $10000.0</p>
-                <p>Disponible en Gris colores</p>
+                <h2>Nombre del Producto</h2>
+                <p><strong>Precio:</strong> $XX,XXX.00</p>
+                <p>Disponible en colores X</p>
             </div>
             <button>Comprar</button>
         </div>
     </section>
-
-</body>
-</html>
+{% endblock %}

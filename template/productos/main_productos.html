@@ -1,80 +1,68 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-</head>
-<body>
-    <!-- Barra de navegación -->
-    <nav>
-        <ul>
-            <li><a href="{% url 'index' %}">Inicio</a></li>
-            <li><a href="{% url 'productos' %}">Productos</a></li>
-            <li><a href="{% url 'stock' %}">Stock</a></li>
-            <li><a href="{% url 'ventas' %}">Ventas</a></li>
-        </ul>
-    </nav>
-    
-    <!-- Encabezado de la tienda -->
-    <header>
-        <h1>Productos</h1>
-    </header>
-    
-    <div class="card-body custom-padding-body">
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="buttons-container">
-                    <button type="button" hx-get="{% url 'addProductos' %}">Agregar Producto</button>
-                </div>
+{% extends 'base.html' %}
+{% load  static %}
+
+{% block title %}Productos{% endblock %}
+{% block content %}
+<div class="container">
+<!-- Encabezado de la tienda -->
+<header>
+    <h1>Productos</h1>
+</header>
+
+<div class="card-body custom-padding-body">
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="buttons-container">
+                <button type="button" hx-get="{% url 'addProductos' %}">Agregar Producto</button>
             </div>
         </div>
-    
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>
-                            <a >Nit</a>
-                        </th>
-                        <th>
-                            <a >Compañía</a>
-                        </th>
-                        <th>
-                            <a >Representante Legal</a>
-                        </th>
-                        {% if user.company.id == 1 %}
-                        <th>
-                            <a >Tipo</a>
-                        </th>
-                        {% endif %}
-                        <th>
-                            <a>Estado</a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="company-tbody">
-                    {% for item in company_info %}
-                    <tr id="{{ item.id }}">
-                        <!-- <td>
-                            <button type="button" hx-get="{% url 'companies:updateDistributionCompany' item.pk %}">Editar</button>
-                            <button type="button" hx-get="{% url 'companies:deleteCompany' item.id %}">Eliminar</button>
-                        </td> -->
-                        <td>{{ item.nit }}</td>
-                        <td>{{ item.company_name }}</td>
-                        <td>{{ item.legal_representative }}</td>
-                        {% if user.company.id == 1 %}
-                        <td>{% if item.provider_id is None %}Distribuidor{% else %}Cliente Final{% endif %}</td>
-                        {% endif %}
-                        <td>{% if item.actived %}Activo{% else %}Inactivo{% endif %}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
-</body>
-</html>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        <a >Nit</a>
+                    </th>
+                    <th>
+                        <a >Compañía</a>
+                    </th>
+                    <th>
+                        <a >Representante Legal</a>
+                    </th>
+                    {% if user.company.id == 1 %}
+                    <th>
+                        <a >Tipo</a>
+                    </th>
+                    {% endif %}
+                    <th>
+                        <a>Estado</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="company-tbody">
+                {% for item in company_info %}
+                <tr id="{{ item.id }}">
+                    <!-- <td>
+                        <button type="button" hx-get="{% url 'companies:updateDistributionCompany' item.pk %}">Editar</button>
+                        <button type="button" hx-get="{% url 'companies:deleteCompany' item.id %}">Eliminar</button>
+                    </td> -->
+                    <td>{{ item.nit }}</td>
+                    <td>{{ item.company_name }}</td>
+                    <td>{{ item.legal_representative }}</td>
+                    {% if user.company.id == 1 %}
+                    <td>{% if item.provider_id is None %}Distribuidor{% else %}Cliente Final{% endif %}</td>
+                    {% endif %}
+                    <td>{% if item.actived %}Activo{% else %}Inactivo{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}
