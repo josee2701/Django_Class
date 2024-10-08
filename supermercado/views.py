@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, TemplateView
 
 from.models import Product,Stock,Venta
+from .froms import ProductoForm
 
 # Create your views here.
 
@@ -19,10 +20,14 @@ class ListProductos(ListView):
 class AddProductos(CreateView):
     template_name='productos/add_productos.html'
     model= Product
+    # form_class= 
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+    def form_valid(self, form):
+        return super().form_valid(form)
+    
     
     
 
