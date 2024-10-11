@@ -1,7 +1,8 @@
 # Register your models here.
 from django.contrib import admin
 
-from .models import Cliente, MetodoPago, Product, ProductoVenta, Stock, Venta
+from .models import (CategoriaProducto, Cliente, MetodoPago, Product,
+                     ProductoVenta, Stock, Venta)
 
 
 class ProductoVentaInline(admin.TabularInline):
@@ -61,6 +62,13 @@ class MetodoPagoAdmin(admin.ModelAdmin):
     """
     list_display = ('tipo',)
 
+class CategoriaProductoAdmin(admin.ModelAdmin):
+    """
+    Personaliza la visualización del modelo CategoriaProducto.
+    """
+    list_display = ('nombre',)
+
+
 
 # Registro de los modelos en el panel de administración
 admin.site.register(Cliente, ClienteAdmin)
@@ -69,3 +77,5 @@ admin.site.register(Stock, StockAdmin)
 admin.site.register(MetodoPago, MetodoPagoAdmin)
 admin.site.register(Venta, VentaAdmin)
 admin.site.register(ProductoVenta, ProductoVentaAdmin)
+admin.site.register(CategoriaProducto, CategoriaProductoAdmin)
+
