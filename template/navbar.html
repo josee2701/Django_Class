@@ -27,8 +27,9 @@
         }
         .navbar-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Mantén los extremos (logo y links) separados */
             align-items: center;
+            padding: 0 2rem; /* Espacio interno en los lados de la barra */
         }
         .logo {
             display: flex;
@@ -37,6 +38,7 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 1.2rem;
+            
         }
         .logo svg {
             width: 40px;
@@ -44,15 +46,19 @@
             margin-right: 10px;
         }
         .nav-links {
-            display: contents;
-            gap: 1.5rem;
+            display: flex;
+            gap: 17rem; /* Espaciado entre los enlaces */
+            flex: 1; /* Permite que los enlaces ocupen todo el espacio disponible */
         }
+        
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
+            padding: 0.5rem; /* Relleno adicional si es necesario */
             transition: color 0.3s ease;
         }
+        
         .nav-links a:hover {
             color: #a0a0a0;
         }
@@ -69,7 +75,8 @@
             background-color: var(--hover-color);
         }
         .menu-toggle {
-            display: none;
+            margin-left: auto; /* Empuja el botón hacia la derecha */
+            display: none; /* Por defecto, oculto */
             background: none;
             border: none;
             color: var(--text-color);
@@ -100,10 +107,10 @@
 <body>
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="{% url 'index' %}" class="logo">
-                Tienda
-            </a>
             <div class="nav-links">
+                <a href="{% url 'index' %}" class="logo">
+                    Tienda
+                </a>
                 <a href="{% url 'productos' %}">Productos</a>
                 <a href="{% url 'stock' %}">Stock</a>
                 <a href="{% url 'ventas' %}">Ventas</a>

@@ -1,64 +1,118 @@
 {% extends 'base.html' %}
 {% load  static %}
-{% block title %}Stock{% endblock %}
+
+{% block title %}Lista De Stock{% endblock %}
 {% block content %}
-    <!-- Encabezado de la tienda -->
-    <header>
-        <h1>Stock</h1>
-    </header>
-    
-    <div class="card-body custom-padding-body">
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="buttons-container">
-                    <button type="button" hx-get="{% url 'addProductos' %}">Agregar Producto</button>
+<div class="container-fluid py-4 custom-padding-container" style="overflow: hidden;">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4 custom-padding-card-my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <div class="col">
+                            <h5 class="text-white text-capitalize ps-3"> Lista De Stock</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body custom-padding-body">
+                    <div class="row align-items-center mb-3">
+                        <div class="col-12 d-flex flex-column flex-md-row align-items-center justify-content-between">
+                            <div class="d-flex flex-wrap align-items-center mb-2 mb-md-0">
+                                <button type="button" hx-get="{% url 'addstock' %}" class="btn btn-primary mx-2" hx-target="#modal .modal-content" style="padding: 9px 12px; margin: 0 0 0 -1px;">
+                                    <i class="fa-solid fa-plus"></i> Agregar a Stock
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center flex-wrap">
+                                <form id="search-form" method="GET" class="flex me-md-3 mb-2 mb-md-0" style="max-width: 180px;" onsubmit="return false">
+                                    <div class="input-group input-group-sm input-group-outline">
+                                        <label class="form-label">Search... </label>
+                                        <input id="search-input" type="text" class="form-control"
+                                            onfocus="focused(this)"
+                                            onfocusout="defocused(this)"
+                                            name="q"
+                                            value="{% if combined_params.q %}{{ combined_params.q }}{% elif combined_params.query %}{{ combined_params.query }}{% else %}{% endif %}"
+                                            autocomplete="off">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0 table-sm">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <form id="sort-form-company" method="post" style="display: none;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="order_by" value="Company">
+                                                <input type="hidden" name="direction" value="{% if order_by == 'Company' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                            </form>
+                                            <a href="#" onclick="document.getElementById('sort-form-company').submit(); return false;">
+                                                producto
+                                                <span class="sort-indicator">
+                                                    <span class="sort-arrow sort-arrow-up {% if order_by == 'Company' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span class="sort-arrow sort-arrow-down {% if order_by == 'Company' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <form id="sort-form-dataplanname" method="post" style="display: none;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="order_by" value="DataPlanName">
+                                                <input type="hidden" name="direction" value="{% if order_by == 'DataPlanName' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                            </form>
+                                            <a href="#" onclick="document.getElementById('sort-form-dataplanname').submit(); return false;">
+                                                cantidad
+                                                <span class="sort-indicator">
+                                                    <span class="sort-arrow sort-arrow-up {% if order_by == 'DataPlanName' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span class="sort-arrow sort-arrow-down {% if order_by == 'DataPlanName' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <form id="sort-form-operator" method="post" style="display: none;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="order_by" value="Operator">
+                                                <input type="hidden" name="direction" value="{% if order_by == 'Operator' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                            </form>
+                                            <a href="#" onclick="document.getElementById('sort-form-operator').submit(); return false;">
+                                                fecha 
+                                                <span class="sort-indicator">
+                                                    <span class="sort-arrow sort-arrow-up {% if order_by == 'Operator' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span class="sort-arrow sort-arrow-down {% if order_by == 'Operator' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                </span>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stock-tbody">
+                                    {% for stock in object_list %}
+                                    <tr>
+                                        <td class="text-center p-2">
+                                                
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <span class="text-secondary mb-0">{{ stock.producto }}</span>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <span class="text-secondary mb-0">{{ stock.cantidad }}</span>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <span class="text-secondary mb-0">{{ stock.fecha }}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
-    
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>
-                            <a >Nit</a>
-                        </th>
-                        <th>
-                            <a >Compañía</a>
-                        </th>
-                        <th>
-                            <a >Representante Legal</a>
-                        </th>
-                        {% if user.company.id == 1 %}
-                        <th>
-                            <a >Tipo</a>
-                        </th>
-                        {% endif %}
-                        <th>
-                            <a>Estado</a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="company-tbody">
-                    {% for item in company_info %}
-                    <tr id="{{ item.id }}">
-                        <!-- <td>
-                            <button type="button" hx-get="{% url 'companies:updateDistributionCompany' item.pk %}">Editar</button>
-                            <button type="button" hx-get="{% url 'companies:deleteCompany' item.id %}">Eliminar</button>
-                        </td> -->
-                        <td>{{ item.nit }}</td>
-                        <td>{{ item.company_name }}</td>
-                        <td>{{ item.legal_representative }}</td>
-                        {% if user.company.id == 1 %}
-                        <td>{% if item.provider_id is None %}Distribuidor{% else %}Cliente Final{% endif %}</td>
-                        {% endif %}
-                        <td>{% if item.actived %}Activo{% else %}Inactivo{% endif %}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
+</div>
 
-    {% endblock %}
+{% endblock %}

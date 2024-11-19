@@ -20,8 +20,8 @@ class Product(models.Model):
     categoria = models.ForeignKey(CategoriaProducto, on_delete=models.SET_NULL, null=True)
     nombre = models.CharField(max_length=50)
     precio = models.DecimalField(max_digits=10, decimal_places=2)  # Usar 2 decimales para el precio
-    imagen = models.FileField(upload_to='productos/')
-    color = models.TextField()
+    imagen = models.FileField(upload_to='productos/',blank=True)
+    color = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.nombre}"
