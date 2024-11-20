@@ -8,28 +8,39 @@
         <div class="col-12">
             <div class="card my-4 custom-padding-card-my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <div class="col">
-                            <h5 class="text-white text-capitalize ps-3"> Tienda</h5>
-                            <div class="d-flex justify-content-end align-items-center flex-wrap">
-                                <form id="search-form" method="GET" class="flex me-md-3 mb-2 mb-md-0" style="max-width: 180px;" onsubmit="return false">
-                                    <div class="input-group input-group-sm input-group-outline">
-                                        <label class="form-label">Search... </label>
-                                        <input id="search-input" type="text" class="form-control"
-                                            onfocus="focused(this)"
-                                            onfocusout="defocused(this)"
-                                            name="q"
-                                            value="{% if combined_params.q %}{{ combined_params.q }}{% elif combined_params.query %}{{ combined_params.query }}{% else %}{% endif %}"
-                                            autocomplete="off">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3" style="text-align: center;">
+                        <header>
+                            <h3 class="text-white text-capitalize ps-3"> Bienvenido a nuestra Tienda</h3>
+                        </header>
                     </div>
                     
                 </div>
                 <div class="card-body custom-padding-body">
-                    
+                    <div class="d-flex justify-content-end align-items-center flex-wrap">
+                        <form id="search-form" method="GET" class="flex me-md-3 mb-2 mb-md-0" style="max-width: 180px;" onsubmit="return false">
+                            <div class="input-group input-group-sm input-group-outline">
+                                <label class="form-label">Search... </label>
+                                <input id="search-input" type="text" class="form-control"
+                                    onfocus="focused(this)"
+                                    onfocusout="defocused(this)"
+                                    name="q"
+                                    value="{% if combined_params.q %}{{ combined_params.q }}{% elif combined_params.query %}{{ combined_params.query }}{% else %}{% endif %}"
+                                    autocomplete="off">
+                            </div>
+                        </form>
+                    </div>
+                    <section class="product-list">
+                        <!-- Repite este bloque para cada producto -->
+                        <div class="product">
+                            <img src="https://via.placeholder.com/150" alt="Nombre del Producto">
+                            <div class="product-info">
+                                <h2>Nombre del Producto</h2>
+                                <p><strong>Precio:</strong> $XX,XXX.00</p>
+                                <p>Disponible en colores X</p>
+                            </div>
+                            <button>Comprar</button>
+                        </div>
+                    </section>
                     
                 </div>
             </div>
