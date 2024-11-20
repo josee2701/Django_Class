@@ -126,6 +126,8 @@ STATIC_URL = '/static/'  # Define la URL para archivos estáticos
 
 # Ruta en el sistema de archivos donde Django buscará archivos estáticos durante el desarrollo
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+MEDIA_URL = '/media/'  # URL base para acceder a los archivos multimedia
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
 
 # Directorio donde se guardarán los archivos estáticos recolectados en producción
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

@@ -30,3 +30,9 @@ class VentaForm(forms.ModelForm):
         model = Venta
         fields = ('__all__')
 
+
+class ConfirmDeleteForm(forms.Form):
+    confirm = forms.BooleanField(
+        label="Confirmar eliminación",
+        required=True
+    )

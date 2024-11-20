@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load  static %}
+{% load static %}
 
 {% block title %}Tienda{% endblock %}
 {% block content %}
@@ -13,35 +13,37 @@
                             <h3 class="text-white text-capitalize ps-3"> Bienvenido a nuestra Tienda</h3>
                         </header>
                     </div>
-                    
                 </div>
                 <div class="card-body custom-padding-body">
                     <div class="d-flex justify-content-end align-items-center flex-wrap">
                         <form id="search-form" method="GET" class="flex me-md-3 mb-2 mb-md-0" style="max-width: 180px;" onsubmit="return false">
                             <div class="input-group input-group-sm input-group-outline">
                                 <label class="form-label">Search... </label>
-                                <input id="search-input" type="text" class="form-control"
-                                    onfocus="focused(this)"
-                                    onfocusout="defocused(this)"
+                                <input id="search-input" type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)"
                                     name="q"
                                     value="{% if combined_params.q %}{{ combined_params.q }}{% elif combined_params.query %}{{ combined_params.query }}{% else %}{% endif %}"
                                     autocomplete="off">
                             </div>
                         </form>
                     </div>
+                    {% for productos in productos_en_stock %}
                     <section class="product-list">
                         <!-- Repite este bloque para cada producto -->
                         <div class="product">
-                            <img src="https://via.placeholder.com/150" alt="Nombre del Producto">
+                            {% if productos.imagen %}
+                            <img src="{{ productos.imagen.url }}" alt="{{ productos.nombre }}">
+                            {% else %}
+                            <img src="https://via.placeholder.com/150" alt="Imagen no disponible">
+                            {% endif %}
                             <div class="product-info">
-                                <h2>Nombre del Producto</h2>
-                                <p><strong>Precio:</strong> $XX,XXX.00</p>
-                                <p>Disponible en colores X</p>
+                                <h2>{{productos.nombre}}</h2>
+                                <p><strong>Precio:</strong>{{productos.precio}} </p>
+                                <p>Disponible en colores {{productos.color}}</p>
                             </div>
                             <button>Comprar</button>
                         </div>
                     </section>
-                    
+                    {% endfor %}
                 </div>
             </div>
         </div>

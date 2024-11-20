@@ -1,7 +1,8 @@
 from django.urls import path
 
-from .views import (AddProductos, AddStock, AddVenta, IndexView, ListProductos,
-                    ListStock, ListVentas)
+from .views import (AddProductos, AddStock, AddVenta, DeleteProductos,
+                    IndexView, ListProductos, ListStock, ListVentas,
+                    UpdateProductos)
 
 # Define la lista de URL pattern
 urlpatterns = [
@@ -12,4 +13,6 @@ urlpatterns = [
     path("stock/addstock", AddStock.as_view(), name="addstock"),
     path("productos/", ListProductos.as_view(), name="productos"),
     path("productos/addproductos/", AddProductos.as_view(), name="addProductos"),
+    path("productos/updateproductos/<int:pk>/", UpdateProductos.as_view(), name="updateProductos"),
+    path("productos/deleteproductos/<int:pk>/", DeleteProductos.as_view(), name="deleteProductos"),
 ]

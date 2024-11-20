@@ -91,7 +91,12 @@
                                     {% for product in object_list %}
                                     <tr>
                                         <td class="text-center p-2">
-                                                
+                                            <button type="button" hx-get="{% url 'updateProductos' product.id %}" class="btn btn-primary btn-sm" hx-target="#modal .modal-content">
+                                                <i class="fa-solid fa-pencil"></i>
+                                            </button>
+                                            <button type="button" hx-get="{% url 'deleteProductos' product.id %}" class="btn btn-danger btn-sm ml-2" hx-target="#modal .modal-content">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="text-secondary mb-0">{{ product.nombre }}</span>
