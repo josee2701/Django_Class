@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Product, Stock, Venta
+from .models import Cliente, MetodoPago, Product, Stock, Venta
 
 
 class ProductoForm(forms.ModelForm):
@@ -29,10 +29,15 @@ class VentaForm(forms.ModelForm):
 
         model = Venta
         fields = ('__all__')
-
-
-class ConfirmDeleteForm(forms.Form):
-    confirm = forms.BooleanField(
-        label="Confirmar eliminación",
-        required=True
-    )
+        
+class CompraForm(forms.Form):
+    # Campos relacionados con el cliente
+    nombre_cliente = forms.CharField(max_length=255, label="Nombre del Cliente")
+    direccion_cliente = forms.CharField(max_length=255, label="Dirección")
+    telefono_cliente = forms.CharField(max_length=20, label="Teléfono")
+    correo_cliente = forms.EmailField(label="Correo Electrónico")
+    
+    # Otros campos de la compra
+    metodo_pago = forms.ModelChoiceField(queryset=MetodoPago.objects.all(), label="Método de Pago")
+    producto_id = forms.IntegerField(widget=forms.HiddenInput())  # Producto seleccionado
+    cantidad = forms.IntegerField(min_value=1, label="Cantidad")

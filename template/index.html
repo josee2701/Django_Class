@@ -40,7 +40,7 @@
                                 <p><strong>Precio:</strong>{{productos.precio}} </p>
                                 <p>Disponible en colores {{productos.color}}</p>
                             </div>
-                            <button>Comprar</button>
+                            <button hx-get="{% url 'compras' productos.pk %}" class="btn btn-primary mx-2" hx-target="#modal .modal-content">Comprar</button>
                         </div>
                     </section>
                     {% endfor %}

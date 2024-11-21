@@ -1,12 +1,13 @@
 from django.urls import path
 
-from .views import (AddProductos, AddStock, AddVenta, DeleteProductos,
-                    DeleteStock, IndexView, ListProductos, ListStock,
-                    ListVentas, UpdateProductos, UpdateStock)
+from .views import (AddProductos, AddStock, AddVenta, ComprarProductoView,
+                    DeleteProductos, DeleteStock, IndexView, ListProductos,
+                    ListStock, ListVentas, UpdateProductos, UpdateStock)
 
 # Define la lista de URL pattern
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
+    path("compras/<int:producto_id>/", ComprarProductoView.as_view(), name="compras"),
     path("ventas/", ListVentas.as_view(), name="ventas"),
     path("ventas/addventas", AddVenta.as_view(), name="addventas"),
     path("stock/", ListStock.as_view(), name="stock"),

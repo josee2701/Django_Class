@@ -1,0 +1,29 @@
+{% load i18n static %}
+{% block content %}
+{{ form.media }}
+<div class="modal-content" id="miModal" style="z-index: 1050">
+  <div class="modal-body">
+    <div class="card">
+      <div class="modal-header">
+        <h3>{% trans "Comprar Producto" %}</h3>
+        <button type="button" id="cerrarVenta" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="card-body">
+    <p>Producto: {{ producto.nombre }}</p>
+    <p>Precio Unitario: {{ producto.precio }}</p>
+
+    <form method="post" action="{% url 'compras' producto.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Realizar Compra</button>
+    </form>
+</body>
+      </div>
+    </div>
+  </div>
+</div>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'assets/css/estilos_templates.css' %}" />
+</head>
+
+{% endblock content %}

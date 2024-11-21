@@ -8,21 +8,16 @@
         <div class="col-12">
             <div class="card my-4 custom-padding-card-my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 ">
                         <div class="col">
                             <h5 class="text-white text-capitalize ps-3"> Lista De ventas</h5>
                         </div>
                     </div>
                 </div>
                 <div class="card-body custom-padding-body">
-                    <div class="row align-items-center mb-3">
-                        <div class="col-12 d-flex flex-column flex-md-row align-items-center justify-content-between">
-                            <div class="d-flex flex-wrap align-items-center mb-2 mb-md-0">
-                                <button type="button" hx-get="{% url 'addProductos' %}" class="btn btn-primary mx-2" hx-target="#modal .modal-content" style="padding: 9px 12px; margin: 0 0 0 -1px;">
-                                    <i class="fa-solid fa-plus"></i> Agregar Productos
-                                </button>
-                            </div>
-                            <div class="d-flex justify-content-end align-items-center flex-wrap">
+                    <div class="row align-items-end mb-3">
+                        <div class="col-12 d-flex flex-column align-items-end justify-content-between">
+                            <div class="d-flex justify-content-end align-items-end flex-wrap">
                                 <form id="search-form" method="GET" class="flex me-md-3 mb-2 mb-md-0" style="max-width: 180px;" onsubmit="return false">
                                     <div class="input-group input-group-sm input-group-outline">
                                         <label class="form-label">Search... </label>
@@ -50,7 +45,7 @@
                                                 <input type="hidden" name="direction" value="{% if order_by == 'Company' and direction == 'asc' %}desc{% else %}asc{% endif %}">
                                             </form>
                                             <a href="#" onclick="document.getElementById('sort-form-company').submit(); return false;">
-                                                Nombre
+                                                Nombre de cliente
                                                 <span class="sort-indicator">
                                                     <span class="sort-arrow sort-arrow-up {% if order_by == 'Company' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
                                                     <span class="sort-arrow sort-arrow-down {% if order_by == 'Company' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
@@ -64,7 +59,7 @@
                                                 <input type="hidden" name="direction" value="{% if order_by == 'DataPlanName' and direction == 'asc' %}desc{% else %}asc{% endif %}">
                                             </form>
                                             <a href="#" onclick="document.getElementById('sort-form-dataplanname').submit(); return false;">
-                                                Precio
+                                                Productos
                                                 <span class="sort-indicator">
                                                     <span class="sort-arrow sort-arrow-up {% if order_by == 'DataPlanName' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
                                                     <span class="sort-arrow sort-arrow-down {% if order_by == 'DataPlanName' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
@@ -78,7 +73,35 @@
                                                 <input type="hidden" name="direction" value="{% if order_by == 'Operator' and direction == 'asc' %}desc{% else %}asc{% endif %}">
                                             </form>
                                             <a href="#" onclick="document.getElementById('sort-form-operator').submit(); return false;">
-                                                Categoria 
+                                                Metodo de Pago
+                                                <span class="sort-indicator">
+                                                    <span class="sort-arrow sort-arrow-up {% if order_by == 'Operator' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span class="sort-arrow sort-arrow-down {% if order_by == 'Operator' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <form id="sort-form-operator" method="post" style="display: none;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="order_by" value="Operator">
+                                                <input type="hidden" name="direction" value="{% if order_by == 'Operator' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                            </form>
+                                            <a href="#" onclick="document.getElementById('sort-form-operator').submit(); return false;">
+                                                Precio total
+                                                <span class="sort-indicator">
+                                                    <span class="sort-arrow sort-arrow-up {% if order_by == 'Operator' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span class="sort-arrow sort-arrow-down {% if order_by == 'Operator' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <form id="sort-form-operator" method="post" style="display: none;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="order_by" value="Operator">
+                                                <input type="hidden" name="direction" value="{% if order_by == 'Operator' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                            </form>
+                                            <a href="#" onclick="document.getElementById('sort-form-operator').submit(); return false;">
+                                                Fecha de Venta
                                                 <span class="sort-indicator">
                                                     <span class="sort-arrow sort-arrow-up {% if order_by == 'Operator' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
                                                     <span class="sort-arrow sort-arrow-down {% if order_by == 'Operator' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
@@ -87,20 +110,26 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="productos-tbody">
-                                    {% for product in object_list %}
+                                <tbody id="ventas-tbody">
+                                    {% for ventas in object_list %}
                                     <tr>
                                         <td class="text-center p-2">
                                                 
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="text-secondary mb-0">{{ product.nombre }}</span>
+                                            <span class="text-secondary mb-0">{{ ventas.cliente.nombre }}</span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="text-secondary mb-0">{{ product.precio }}</span>
+                                            <span class="text-secondary mb-0">{{ ventas.producto.cantidad }}</span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="text-secondary mb-0">{{ product.categoria.nombre }}</span>
+                                            <span class="text-secondary mb-0">{{ ventas.metodo_pago }}</span>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <span class="text-secondary mb-0">{{ ventas.total }}</span>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <span class="text-secondary mb-0">{{ ventas.fecha }}</span>
                                         </td>
                                     </tr>
                                     {% endfor %}
