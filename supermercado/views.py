@@ -123,7 +123,6 @@ class AddStock(CreateView):
     template_name='stock/add_stock.html'
     model= Stock
     form_class= StockForm
-    success_url = reverse_lazy("stock")
     
     def get_success_url(self):
         """
@@ -146,6 +145,62 @@ class AddStock(CreateView):
         page_update = HttpResponse("")
         page_update["HX-Redirect"] = self.get_success_url()
         return page_update
+
+class UpdateStock(UpdateView):
+    template_name='stock/update_stock.html'
+    model= Stock
+    form_class= StockForm
+
+    def get_success_url(self):
+        """
+        Devuelve la URL de éxito a la que se redirige después de una creación exitosa.
+
+        Returns:
+            str: La URL de redirección.
+        """
+        return reverse("stock") 
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    def form_valid(self, form):
+        # Guardamos el formulario para crear el objeto
+        self.object = form.save()
+        # Prepara una respuesta con redirección usando HTMX
+        page_update = HttpResponse("")
+        page_update["HX-Redirect"] = self.get_success_url()
+        return page_update
+
+class DeleteStock(View):
+    
+    template_name = 'productos/delete_stock.html'
+
+    def get_success_url(self):
+        """
+        Devuelve la URL de redirección tras eliminar el producto.
+        """
+        return reverse("stock")
+
+    def get(self, request, *args, **kwargs):
+        """
+        Maneja el método GET para mostrar la confirmación.
+        """
+        stock = get_object_or_404(Stock, pk=self.kwargs['pk'])
+        return render(request, 'stock/delete_stock.html', {'object': stock})
+
+
+    def post(self, request, *args, **kwargs):
+        """
+        Maneja la solicitud POST para eliminar el producto.
+        """
+        stock = get_object_or_404(Stock, pk=self.kwargs['pk'])
+        stock.delete()
+
+        # Prepara una respuesta con redirección usando HTMX
+        page_update = HttpResponse("")
+        page_update["HX-Redirect"] = self.get_success_url()
+        return page_update
+    
     
 class ListVentas(ListView):
     template_name='ventas/main_ventas.html'

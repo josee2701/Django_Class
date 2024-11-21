@@ -1,0 +1,27 @@
+{% load i18n static %}
+{% block content %}
+<div class="modal-content">
+  <div class="row">
+    <div class="modal-body-md-1">
+      <div class="col">
+        <div class="card align-items-center">
+          <div class="card-body">
+            <!-- Formulario para confirmar eliminación -->
+            <form method="post" hx-post="{{ request.path }}" 
+                  hx-target="#modal-content" 
+                  hx-swap="outerHTML" 
+                  autocomplete="off">
+              {% csrf_token %}
+              <p>{% trans '¿Está seguro de que desea eliminar el producto ' %}</p>
+              <div class="d-grid col-4 mx-auto">
+                <button type="submit" class="btn btn-danger">{% trans "Confirmar" %}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

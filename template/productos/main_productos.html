@@ -85,6 +85,23 @@
                                                 </span>
                                             </a>
                                         </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <form id="sort-form-operator" method="post" style="display: none;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="order_by" value="Operator">
+                                                <input type="hidden" name="direction"
+                                                    value="{% if order_by == 'Operator' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                            </form>
+                                            <a href="#" onclick="document.getElementById('sort-form-operator').submit(); return false;">
+                                                Imagen
+                                                <span class="sort-indicator">
+                                                    <span
+                                                        class="sort-arrow sort-arrow-up {% if order_by == 'Operator' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span
+                                                        class="sort-arrow sort-arrow-down {% if order_by == 'Operator' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                </span>
+                                            </a>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="productos-tbody">
@@ -106,6 +123,15 @@
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="text-secondary mb-0">{{ product.categoria.nombre }}</span>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <span class="text-secondary mb-0">
+                                                {% if product.imagen %}
+                                                Si tiene
+                                                {% else %}
+                                                No tiene
+                                                {% endif %}
+                                            </span>
                                         </td>
                                     </tr>
                                     {% endfor %}

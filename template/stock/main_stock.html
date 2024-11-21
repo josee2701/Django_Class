@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load  static %}
+{% load static %}
 
 {% block title %}Lista De Stock{% endblock %}
 {% block content %}
@@ -18,17 +18,17 @@
                     <div class="row align-items-center mb-3">
                         <div class="col-12 d-flex flex-column flex-md-row align-items-center justify-content-between">
                             <div class="d-flex flex-wrap align-items-center mb-2 mb-md-0">
-                                <button type="button" hx-get="{% url 'addstock' %}" class="btn btn-primary mx-2" hx-target="#modal .modal-content" style="padding: 9px 12px; margin: 0 0 0 -1px;">
+                                <button type="button" hx-get="{% url 'addstock' %}" class="btn btn-primary mx-2" hx-target="#modal .modal-content"
+                                    style="padding: 9px 12px; margin: 0 0 0 -1px;">
                                     <i class="fa-solid fa-plus"></i> Agregar a Stock
                                 </button>
                             </div>
                             <div class="d-flex justify-content-end align-items-center flex-wrap">
-                                <form id="search-form" method="GET" class="flex me-md-3 mb-2 mb-md-0" style="max-width: 180px;" onsubmit="return false">
+                                <form id="search-form" method="GET" class="flex me-md-3 mb-2 mb-md-0" style="max-width: 180px;"
+                                    onsubmit="return false">
                                     <div class="input-group input-group-sm input-group-outline">
                                         <label class="form-label">Search... </label>
-                                        <input id="search-input" type="text" class="form-control"
-                                            onfocus="focused(this)"
-                                            onfocusout="defocused(this)"
+                                        <input id="search-input" type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)"
                                             name="q"
                                             value="{% if combined_params.q %}{{ combined_params.q }}{% elif combined_params.query %}{{ combined_params.query }}{% else %}{% endif %}"
                                             autocomplete="off">
@@ -47,13 +47,16 @@
                                             <form id="sort-form-company" method="post" style="display: none;">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="order_by" value="Company">
-                                                <input type="hidden" name="direction" value="{% if order_by == 'Company' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                                <input type="hidden" name="direction"
+                                                    value="{% if order_by == 'Company' and direction == 'asc' %}desc{% else %}asc{% endif %}">
                                             </form>
                                             <a href="#" onclick="document.getElementById('sort-form-company').submit(); return false;">
                                                 producto
                                                 <span class="sort-indicator">
-                                                    <span class="sort-arrow sort-arrow-up {% if order_by == 'Company' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
-                                                    <span class="sort-arrow sort-arrow-down {% if order_by == 'Company' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                    <span
+                                                        class="sort-arrow sort-arrow-up {% if order_by == 'Company' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span
+                                                        class="sort-arrow sort-arrow-down {% if order_by == 'Company' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
                                                 </span>
                                             </a>
                                         </th>
@@ -61,13 +64,16 @@
                                             <form id="sort-form-dataplanname" method="post" style="display: none;">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="order_by" value="DataPlanName">
-                                                <input type="hidden" name="direction" value="{% if order_by == 'DataPlanName' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                                <input type="hidden" name="direction"
+                                                    value="{% if order_by == 'DataPlanName' and direction == 'asc' %}desc{% else %}asc{% endif %}">
                                             </form>
                                             <a href="#" onclick="document.getElementById('sort-form-dataplanname').submit(); return false;">
                                                 cantidad
                                                 <span class="sort-indicator">
-                                                    <span class="sort-arrow sort-arrow-up {% if order_by == 'DataPlanName' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
-                                                    <span class="sort-arrow sort-arrow-down {% if order_by == 'DataPlanName' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                    <span
+                                                        class="sort-arrow sort-arrow-up {% if order_by == 'DataPlanName' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span
+                                                        class="sort-arrow sort-arrow-down {% if order_by == 'DataPlanName' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
                                                 </span>
                                             </a>
                                         </th>
@@ -75,13 +81,16 @@
                                             <form id="sort-form-operator" method="post" style="display: none;">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="order_by" value="Operator">
-                                                <input type="hidden" name="direction" value="{% if order_by == 'Operator' and direction == 'asc' %}desc{% else %}asc{% endif %}">
+                                                <input type="hidden" name="direction"
+                                                    value="{% if order_by == 'Operator' and direction == 'asc' %}desc{% else %}asc{% endif %}">
                                             </form>
                                             <a href="#" onclick="document.getElementById('sort-form-operator').submit(); return false;">
-                                                fecha 
+                                                fecha
                                                 <span class="sort-indicator">
-                                                    <span class="sort-arrow sort-arrow-up {% if order_by == 'Operator' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
-                                                    <span class="sort-arrow sort-arrow-down {% if order_by == 'Operator' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
+                                                    <span
+                                                        class="sort-arrow sort-arrow-up {% if order_by == 'Operator' and direction == 'asc' %}active{% else %}inactive{% endif %}">↑</span>
+                                                    <span
+                                                        class="sort-arrow sort-arrow-down {% if order_by == 'Operator' and direction == 'desc' %}active{% else %}inactive{% endif %}">↓</span>
                                                 </span>
                                             </a>
                                         </th>
@@ -91,7 +100,12 @@
                                     {% for stock in object_list %}
                                     <tr>
                                         <td class="text-center p-2">
-                                                
+                                            <button type="button" hx-get="{% url 'updateStock' stock.id %}" class="btn btn-primary btn-sm" hx-target="#modal .modal-content">
+                                                <i class="fa-solid fa-pencil"></i>
+                                            </button>
+                                            <button type="button" hx-get="{% url 'deleteStock' stock.id %}" class="btn btn-danger btn-sm ml-2" hx-target="#modal .modal-content">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="text-secondary mb-0">{{ stock.producto }}</span>
@@ -108,7 +122,6 @@
                             </table>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
